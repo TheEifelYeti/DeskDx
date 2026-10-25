@@ -1,4 +1,4 @@
-# CI for UiDx — build + full test suite.
+# CI for DeskDx — build + full test suite.
 #
 # Windows runner is required: the tests drive real desktop applications through
 # UI Automation (FlaUI), including Notepad and the WinForms TestTarget app.
@@ -35,10 +35,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore
-        run: dotnet restore UiDx.slnx
+        run: dotnet restore DeskDx.slnx
 
       - name: Build (warnings as errors)
-        run: dotnet build UiDx.slnx --no-restore -warnaserror
+        run: dotnet build DeskDx.slnx --no-restore -warnaserror
 
       # Build the test vehicle explicitly: the fixtures resolve TestTarget.exe /
       # TestTarget.Mcp.exe from tools/*/bin/<config>/ and fail fast if missing.
@@ -48,10 +48,10 @@ jobs:
           dotnet build tools/TestTarget.Mcp/TestTarget.Mcp.csproj -c Debug --no-restore
 
       - name: Test — engine (N, T, G, E, D, S)
-        run: dotnet test tests/UiDx.Tests/UiDx.Tests.csproj -c Debug --no-build --logger "trx;LogFileName=engine.trx"
+        run: dotnet test tests/DeskDx.Tests/DeskDx.Tests.csproj -c Debug --no-build --logger "trx;LogFileName=engine.trx"
 
       - name: Test — MCP server (M1–M8)
-        run: dotnet test tests/UiDx.Mcp.Tests/UiDx.Mcp.Tests.csproj -c Debug --no-build --logger "trx;LogFileName=mcp.trx"
+        run: dotnet test tests/DeskDx.Mcp.Tests/DeskDx.Mcp.Tests.csproj -c Debug --no-build --logger "trx;LogFileName=mcp.trx"
 
       - name: Upload test results
         if: always()

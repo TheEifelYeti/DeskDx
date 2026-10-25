@@ -3,7 +3,7 @@ using System.ComponentModel;
 namespace TestTarget;
 
 /// <summary>
-/// Deterministic test vehicle for the UiDx locator tests. Deliberately mimics the properties of
+/// Deterministic test vehicle for the DeskDx locator tests. Deliberately mimics the properties of
 /// migrated VB6/WinForms applications: designer names are exposed as UIA AutomationId by the
 /// modern WinForms provider, most controls have no <see cref="Control.AccessibleName"/> (so the
 /// UIA Name falls back to the caption), and identical captions exist.
@@ -28,7 +28,7 @@ public sealed class MainForm : Form
     public MainForm()
     {
         Name = "MainForm";
-        Text = "UiDx TestTarget";
+        Text = "DeskDx TestTarget";
         ClientSize = new Size(700, 600);
         StartPosition = FormStartPosition.CenterScreen;
 
@@ -110,7 +110,7 @@ public sealed class MainForm : Form
         };
         btnMsgBox.Click += (_, _) => MessageBox.Show(
             this,
-            "UiDx TestTarget Meldung",
+            "DeskDx TestTarget Meldung",
             "Meldung",
             MessageBoxButtons.OK,
             MessageBoxIcon.Information);

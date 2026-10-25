@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DeskDx/DeskDx.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DeskDx.Mcp.Tests/DeskDx.Mcp.Tests.csproj" />
+    <Project Path="tests/DeskDx.Tests/DeskDx.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/TestTarget.Mcp/TestTarget.Mcp.csproj" />
+    <Project Path="tools/TestTarget/TestTarget.csproj" />
+    <Project Path="tools/DeskDx.Dogfood/DeskDx.Dogfood.csproj" />
+    <Project Path="tools/DeskDx.Evidence/DeskDx.Evidence.csproj" />
+    <Project Path="tools/DeskDx.Mcp.Demo/DeskDx.Mcp.Demo.csproj" />
+    <Project Path="tools/DeskDx.Mcp/DeskDx.Mcp.csproj" />
+  </Folder>
+</Solution>
+

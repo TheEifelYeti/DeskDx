@@ -9,11 +9,11 @@
 coverage*.json
 coverage*.xml
 
-# Trace directories produced by UiDx.AppSession runs
+# Trace directories produced by DeskDx.AppSession runs
 **/traces/
 
 # Working directory of the local MCP server (.vscode/mcp.json)
-.uidx-mcp/
+.deskdx-mcp/
 
 dogfood-run/
 dogfood-run-*
