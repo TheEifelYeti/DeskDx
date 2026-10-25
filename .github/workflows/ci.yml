@@ -1,0 +1,62 @@
+# CI for UiDx — build + full test suite.
+#
+# Windows runner is required: the tests drive real desktop applications through
+# UI Automation (FlaUI), including Notepad and the WinForms TestTarget app.
+# GitHub-hosted windows-latest runners provide an interactive desktop session,
+# which UIA needs.
+#
+# Every test app runs under its own image name (TestTarget / TestTarget.Mcp), so
+# the two acceptance suites can run in one job without stepping on each other.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore UiDx.slnx
+
+      - name: Build (warnings as errors)
+        run: dotnet build UiDx.slnx --no-restore -warnaserror
+
+      # Build the test vehicle explicitly: the fixtures resolve TestTarget.exe /
+      # TestTarget.Mcp.exe from tools/*/bin/<config>/ and fail fast if missing.
+      - name: Build test applications
+        run: |
+          dotnet build tools/TestTarget/TestTarget.csproj -c Debug --no-restore
+          dotnet build tools/TestTarget.Mcp/TestTarget.Mcp.csproj -c Debug --no-restore
+
+      - name: Test — engine (N, T, G, E, D, S)
+        run: dotnet test tests/UiDx.Tests/UiDx.Tests.csproj -c Debug --no-build --logger "trx;LogFileName=engine.trx"
+
+      - name: Test — MCP server (M1–M8)
+        run: dotnet test tests/UiDx.Mcp.Tests/UiDx.Mcp.Tests.csproj -c Debug --no-build --logger "trx;LogFileName=mcp.trx"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/TestResults/*.trx'
+          if-no-files-found: ignore

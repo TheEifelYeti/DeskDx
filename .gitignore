@@ -1,0 +1,38 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# Test results
+[Tt]est[Rr]esults/
+*.trx
+*.coverage
+coverage*.json
+coverage*.xml
+
+# Trace directories produced by UiDx.AppSession runs
+**/traces/
+
+# Working directory of the local MCP server (.vscode/mcp.json)
+.uidx-mcp/
+
+dogfood-run/
+dogfood-run-*
+
+# UIA snapshot mismatch artifacts (inspectable, never committed)
+**/snapshots/__mismatches__/
+
+# IDE
+.vs/
+.vscode/
+*.user
+
+# OS
+Thumbs.db
+desktop.ini
+
+# Dogfood/VB6 baselines stay private (Obsidian vault)
+/snapshots/
+
+# crash dumps (e.g. from a crashed dotnet process)
+core
+core.*

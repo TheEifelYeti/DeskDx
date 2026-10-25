@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <IsPackable>false</IsPackable>
+    <!-- Used by the M8 stdio smoke test to locate the built server. -->
+    <AssemblyName>UiDx.Mcp</AssemblyName>
+    <!-- NOTE: PackAsTool is impossible here — dotnet tools forbid a platform TFM
+         (NETSDK1146: "cannot be net8.0-windows, only net8.0"). Distribution as a
+         dotnet tool would need a platform-neutral launcher project. -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\UiDx\UiDx.csproj" />
+  </ItemGroup>
+
+</Project>

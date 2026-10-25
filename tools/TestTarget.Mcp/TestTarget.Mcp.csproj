@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    A second build of the TestTarget form under a DIFFERENT process name.
+
+    Why this exists: test projects run in parallel, and a UI test fixture cleans up by killing every
+    process of the application under test. With one shared name, the MCP suite and the engine suite
+    kill each other's application mid-test (observed: a sporadic VB6Locator failure in the engine
+    suite). A distinct image name removes the collision without serializing the suites.
+
+    The sources are the same files — this project only changes the assembly name, so both builds are
+    byte-for-byte the same form and can never drift.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationDefaultFont>Segoe UI, 9pt</ApplicationDefaultFont>
+    <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AssemblyName>TestTargetMcp</AssemblyName>
+    <RootNamespace>TestTarget</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\TestTarget\*.cs" />
+  </ItemGroup>
+
+</Project>
